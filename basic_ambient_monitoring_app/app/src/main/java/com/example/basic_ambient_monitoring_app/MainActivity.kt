@@ -9,18 +9,22 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.View
+import android.widget.ScrollView
 import android.widget.TextView
 
 class MainActivity : AppCompatActivity(), SensorEventListener{
 
     private lateinit var sensorManager: SensorManager
     private var ambientTemperature: Sensor? = null
-    var temp: String = "Test"
+    var temp: String = ""
+    val scrollView: ScrollView by lazy { findViewById<ScrollView>(R.id.scrollview) }
+
 
         override fun onSensorChanged(event: SensorEvent?) {
         if (event != null) {
             if (event.sensor.type == Sensor.TYPE_AMBIENT_TEMPERATURE) {
-                temp = event.values[0].toString()
+                temp = "\n" + event.values[0].toString()
             }
         }
     }
@@ -47,10 +51,12 @@ class MainActivity : AppCompatActivity(), SensorEventListener{
         val handler = Handler(Looper.getMainLooper())
         handler.post(object : Runnable {
             override fun run() {
-                textview.text = temp
-                handler.postDelayed(this, 5000);
+                textview.append(temp)
+                scrollView.fullScroll(ScrollView.FOCUS_DOWN)
+                handler.postDelayed(this, 100);
             }
         })
+
     }
 
     override fun onResume() {

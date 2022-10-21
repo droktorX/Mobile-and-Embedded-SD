@@ -8,6 +8,7 @@
     tools:context=".MainActivity">
 
     <ScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="8dp"
@@ -27,7 +28,7 @@
             android:id="@+id/textView_temperatur"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="placeholder"
+            android:text="Temperature [°C]"
             android:visibility="visible" />
     </ScrollView>
 
